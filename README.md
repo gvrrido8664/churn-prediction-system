@@ -1,45 +1,69 @@
-🛡️ Sistema de Predicción de Fuga de Clientes (Churn) - Machine Learning
-Este proyecto desarrolla una solución integral de Analítica Predictiva para identificar clientes con alta probabilidad de abandonar una institución financiera (aplicable a Banca y Seguros como SURA). El sistema combina un modelo de Inteligencia Artificial en Python con un Dashboard interactivo en Power BI para la toma de decisiones estratégicas.
+# 🛡️ Sistema de Predicción de Fuga de Clientes (Churn)
+> **Proyecto de Inteligencia Artificial y Analítica Predictiva**
 
-📊 Impacto del Proyecto
-Precisión del Modelo: 86.60% utilizando el algoritmo Random Forest.
+![Python](https://img.shields.io/badge/Python-3.14-blue?style=for-the-badge&logo=python&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![Power_BI](https://img.shields.io/badge/Power_BI-Analytics-yellow?style=for-the-badge&logo=powerbi&logoColor=black)
 
-Variable Crítica Identificada: La Edad resultó ser el predictor más fuerte de fuga.
+## 📋 Descripción del Proyecto
+Este sistema soluciona uno de los problemas financieros más críticos: la **fuga de clientes**. Utilizando un modelo de **Machine Learning (Random Forest)**, el software analiza el comportamiento histórico para predecir qué clientes tienen mayor probabilidad de abandonar la institución.
 
-Valor de Negocio: Permite al equipo comercial priorizar la retención de clientes según el "Score de Riesgo" y el saldo en cuenta (Balance).
+Los resultados son procesados automáticamente y visualizados en un **Dashboard de Alerta Temprana**, permitiendo que el equipo comercial tome acciones preventivas antes de que el cliente se retire.
 
-🏗️ Estructura del Proyecto
-Plaintext
-├── data/               # Datasets originales y procesados por la IA.
-├── models/             # El modelo entrenado (.pkl) y metadatos.
-├── notebooks/          # Análisis exploratorio (EDA) y entrenamiento.
-├── scripts/            # Script de inferencia para datos nuevos.
-└── dashboard/          # Archivo .pbix con la visualización final.
-🛠️ Stack Tecnológico
-Python 3.x: (Pandas, Scikit-Learn, Seaborn, Joblib).
+---
 
-Machine Learning: Random Forest Classifier (Bosque Aleatorio).
+## 🚀 Características Principales
+* **Modelo Predictivo:** Clasificador entrenado con un **86.60% de exactitud**.
+* **Análisis Geográfico:** Identificación de mercados críticos mediante Treemaps dinámicos.
+* **Priorización:** Tabla de acción inmediata con "Score de Riesgo" y formato condicional (Semáforo).
+* **Pipeline Automatizado:** Script en Python con rutas dinámicas para procesar nuevos datos.
 
-Power BI: Modelado de datos, medidas DAX y visualización predictiva.
+---
 
-GitHub: Control de versiones y gestión de directorios.
+## 📁 Estructura del Repositorio
+Para facilitar la navegación del equipo técnico, el proyecto se organiza así:
 
-🚀 Cómo ejecutar el Pipeline
-Entrenamiento: El análisis y entrenamiento se encuentra en notebooks/01_eda_limpieza.ipynb.
+| Carpeta | Contenido |
+| :--- | :--- |
+| `📂 data` | Datasets originales y procesados (`clientes_con_riesgo.csv`). |
+| `📂 notebooks` | Análisis Exploratorio (EDA) y entrenamiento del modelo. |
+| `📂 models` | Modelos serializados (`.pkl`) y metadatos del entrenamiento. |
+| `📂 scripts` | Lógica de inferencia y procesamiento automatizado. |
+| `📂 dashboard` | Archivo `.pbix` con la visualización estratégica final. |
 
-Generación de Predicciones: Ejecuta el script de Python para procesar clientes actuales:
+---
 
-python scripts/predict_churn.py
+## 🛠️ Stack Tecnológico
+* **Lenguaje:** Python (Pandas, Numpy).
+* **IA:** Scikit-Learn (Random Forest Classifier).
+* **Visualización:** Power BI & DAX (Medidas de riesgo y salud de cartera).
+* **Entorno:** VS Code & Jupyter Notebooks.
 
-Visualización: Abre dashboard/Analisis_Predictivo_Fuga_Clientes.pbix y actualiza el origen de datos con el archivo clientes_con_riesgo.csv generado.
+---
 
-🔍 Análisis de Resultados
-El modelo detectó que los clientes entre 45 y 60 años presentan la tasa más alta de abandono.
+## ⚙️ Instrucciones de Uso
 
-Los miembros activos (IsActiveMember) tienen una probabilidad de fuga significativamente menor, lo que valida las estrategias de engagement.
+1. **Instalar dependencias:**
+   ```bash
+   pip install pandas scikit-learn joblib
+   ```
 
-Alemania se identificó como el mercado con mayor capital en riesgo según el análisis geográfico.
+2. **Generar predicciones:**
+   Ejecuta el script desde la raíz para obtener el archivo de riesgo:
+   ```bash
+   python scripts/predict_churn.py
+   ```
 
-👨‍💻 Autor
-Ignacio - Ingeniero en Informática (Inacap)
-Especialista en Análisis de Datos y Desarrollo de Soluciones Técnicas.
+3. **Explorar el Dashboard:**
+   Abre el archivo en `dashboard/` y conecta la fuente de datos al nuevo CSV generado en la carpeta `data/`.
+
+---
+
+## 📈 Conclusiones Técnicas
+* **Variable Crítica:** La **edad** es el predictor con mayor peso, concentrando el riesgo en el segmento de 45-60 años.
+* **Engagement:** El estatus de **Miembro Activo** reduce drásticamente la probabilidad de fuga, sugiriendo que las estrategias de fidelización deben enfocarse en el uso constante de productos.
+
+---
+
+### 👤 Autor
+**Ignacio** - *Ingeniero en Informática (Inacap)*
