@@ -1,69 +1,34 @@
-# 🛡️ Sistema de Predicción de Fuga de Clientes (Churn)
-> **Proyecto de Inteligencia Artificial y Analítica Predictiva**
+# Churn: entrenamiento, evaluación e inferencia
 
-![Python](https://img.shields.io/badge/Python-3.14-blue?style=for-the-badge&logo=python&logoColor=white)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?style=for-the-badge&logo=scikitlearn&logoColor=white)
-![Power_BI](https://img.shields.io/badge/Power_BI-Analytics-yellow?style=for-the-badge&logo=powerbi&logoColor=black)
+Proyecto personal de **Ignacio Garrido**, Ingeniero en Informática titulado. Desarrollo propio de la aplicación; librerías, plantillas, datos e imágenes de terceros conservan su autoría.
 
-## 📋 Descripción del Proyecto
-Este sistema soluciona uno de los problemas financieros más críticos: la **fuga de clientes**. Utilizando un modelo de **Machine Learning (Random Forest)**, el software analiza el comportamiento histórico para predecir qué clientes tienen mayor probabilidad de abandonar la institución.
+Pipeline de scikit-learn para estudiar abandono de clientes: validación de columnas, OneHotEncoder, Random Forest y exportación de probabilidades. `Geography` y `Gender` se transforman mediante **el mismo preprocesador entrenado**, incluso al predecir una sola fila.
 
-Los resultados son procesados automáticamente y visualizados en un **Dashboard de Alerta Temprana**, permitiendo que el equipo comercial tome acciones preventivas antes de que el cliente se retire.
+![Evaluación del CSV local](docs/evaluacion.png)
 
----
+## Demo reproducible
+Python 3.12+, sin cuentas externas:
+```powershell
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements.txt
+.venv/Scripts/python demo.py
+```
+Genera datos sintéticos, pipeline y predicciones en `demo_output/`. Comprueba que la predicción no cambia con la composición del lote, acepta países no vistos y no utiliza `Exited` como predictor. Las métricas de esta demo son **sintéticas**.
 
-## 🚀 Características Principales
-* **Modelo Predictivo:** Clasificador entrenado con un **86.60% de exactitud**.
-* **Análisis Geográfico:** Identificación de mercados críticos mediante Treemaps dinámicos.
-* **Priorización:** Tabla de acción inmediata con "Score de Riesgo" y formato condicional (Semáforo).
-* **Pipeline Automatizado:** Script en Python con rutas dinámicas para procesar nuevos datos.
+## Entrenar con tu CSV
+El notebook y los scripts llaman al mismo código. Columnas: CreditScore, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary, Geography, Gender; entrenamiento requiere además Exited (0/1).
+```powershell
+python scripts/train.py --csv data/churn_raw.csv --output models
+python scripts/infer.py --csv data/clientes.csv --model models/pipeline.joblib --output predicciones.csv
+```
+`predict_churn.py` es un alias de la misma inferencia. Solo carga modelos joblib generados por ti. El umbral fijo 0,5 indica clasificación del modelo; la probabilidad no está calibrada para decisiones comerciales.
 
----
+## Evaluación verificada el 05-10-2026
+Se ejecutó sobre el CSV local de 10.000 filas, split estratificado 80/20 y semilla 42, sin ajustar el umbral con el test. Random Forest: accuracy **0,861**, precision **0,763**, recall **0,459**, F1 **0,574**, ROC-AUC **0,849**. Baseline mayoritario: accuracy 0,797 y ROC-AUC 0,500. El recall muestra que aún se pierden muchos casos de abandono; no basta con anunciar accuracy.
 
-## 📁 Estructura del Repositorio
-Para facilitar la navegación del equipo técnico, el proyecto se organiza así:
+Detalles, matriz de confusión y hash de la fuente en `docs/evaluacion_local.json`. Una sola partición no acredita desempeño futuro ni reducción de churn. No se incluyen datos originales, identificadores de clientes ni el modelo entrenado con ese CSV.
 
-| Carpeta | Contenido |
-| :--- | :--- |
-| `📂 data` | Datasets originales y procesados (`clientes_con_riesgo.csv`). |
-| `📂 notebooks` | Análisis Exploratorio (EDA) y entrenamiento del modelo. |
-| `📂 models` | Modelos serializados (`.pkl`) y metadatos del entrenamiento. |
-| `📂 scripts` | Lógica de inferencia y procesamiento automatizado. |
-| `📂 dashboard` | Archivo `.pbix` con la visualización estratégica final. |
+## Datos y créditos
+Referencia de descarga del notebook original: [Churn-Modelling-Dataset](https://github.com/sharmaroshan/Churn-Modelling-Dataset). Su repositorio declara GPL-3.0; la procedencia y permisos específicos del CSV deben revisarse antes de redistribuirlo. La copia de portafolio distribuye únicamente el generador sintético propio.
 
----
-
-## 🛠️ Stack Tecnológico
-* **Lenguaje:** Python (Pandas, Numpy).
-* **IA:** Scikit-Learn (Random Forest Classifier).
-* **Visualización:** Power BI & DAX (Medidas de riesgo y salud de cartera).
-* **Entorno:** VS Code & Jupyter Notebooks.
-
----
-
-## ⚙️ Instrucciones de Uso
-
-1. **Instalar dependencias:**
-   ```bash
-   pip install pandas scikit-learn joblib
-   ```
-
-2. **Generar predicciones:**
-   Ejecuta el script desde la raíz para obtener el archivo de riesgo:
-   ```bash
-   python scripts/predict_churn.py
-   ```
-
-3. **Explorar el Dashboard:**
-   Abre el archivo en `dashboard/` y conecta la fuente de datos al nuevo CSV generado en la carpeta `data/`.
-
----
-
-## 📈 Conclusiones Técnicas
-* **Variable Crítica:** La **edad** es el predictor con mayor peso, concentrando el riesgo en el segmento de 45-60 años.
-* **Engagement:** El estatus de **Miembro Activo** reduce drásticamente la probabilidad de fuga, sugiriendo que las estrategias de fidelización deben enfocarse en el uso constante de productos.
-
----
-
-### 👤 Autor
-**Ignacio** - *Ingeniero en Informática (Inacap)*
+English: shared training/inference pipeline, stratified holdout evaluation and majority-class baseline. Metrics report model behavior on a local dataset, not business impact.

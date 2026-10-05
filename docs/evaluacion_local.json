@@ -1,0 +1,50 @@
+{
+  "split": "80/20 estratificado",
+  "seed": 42,
+  "train_rows": 8000,
+  "test_rows": 2000,
+  "threshold": 0.5,
+  "baseline": {
+    "accuracy": 0.7965,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.5,
+    "confusion_matrix": [
+      [
+        1593,
+        0
+      ],
+      [
+        407,
+        0
+      ]
+    ]
+  },
+  "random_forest": {
+    "accuracy": 0.861,
+    "precision": 0.763265306122449,
+    "recall": 0.4594594594594595,
+    "f1": 0.5736196319018405,
+    "roc_auc": 0.8490686372042304,
+    "confusion_matrix": [
+      [
+        1535,
+        58
+      ],
+      [
+        220,
+        187
+      ]
+    ]
+  },
+  "dataset": "CSV local churn_raw.csv, 10.000 filas; no es una evaluación en clientes reales",
+  "sha256": "7b88491566738b2abe12919f4ca875ef39ce773054365e978e0a409525f81c45",
+  "source_reference": "https://github.com/sharmaroshan/Churn-Modelling-Dataset",
+  "date": "2026-10-05",
+  "versions": {
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.6"
+  },
+  "limitations": "Una única partición estratificada; sin validación temporal, calibración o evaluación de impacto comercial."
+}
